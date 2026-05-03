@@ -28,7 +28,7 @@ export const VeoGenerator: React.FC<VeoGeneratorProps> = ({ scene }) => {
   const checkApiKey = useCallback(async () => {
     setIsCheckingApiKey(true);
     try {
-      const hasKey = await (window as any).aistudio.hasSelectedApiKey();
+      const hasKey = !!localStorage.getItem('VEO_API_KEY')?.trim();
       setApiKeySelected(hasKey);
     } catch (e) {
       console.error("Error checking for API key:", e);
@@ -39,17 +39,7 @@ export const VeoGenerator: React.FC<VeoGeneratorProps> = ({ scene }) => {
   }, []);
 
   useEffect(() => {
-    if ((window as any).aistudio) {
-        checkApiKey();
-    } else {
-        const interval = setInterval(() => {
-            if ((window as any).aistudio) {
-                checkApiKey();
-                clearInterval(interval);
-            }
-        }, 100);
-        return () => clearInterval(interval);
-    }
+    checkApiKey();
   }, [checkApiKey]);
 
   useEffect(() => {
@@ -67,15 +57,7 @@ export const VeoGenerator: React.FC<VeoGeneratorProps> = ({ scene }) => {
   }, [isGenerating]);
 
   const handleSelectKey = async () => {
-    try {
-      await (window as any).aistudio.openSelectKey();
-      // Assume success and optimistically update UI
-      setApiKeySelected(true);
-      setError(null);
-    } catch (e) {
-      console.error("Error opening API key selection:", e);
-      setError("Không thể mở hộp thoại chọn API key.");
-    }
+    setError('Vui lòng nhập OpenAI API key tại biểu tượng Cài đặt (góc trên bên phải), rồi thử lại.');
   };
   
   const handleGenerate = async () => {
@@ -147,7 +129,7 @@ export const VeoGenerator: React.FC<VeoGeneratorProps> = ({ scene }) => {
             <p className="text-xs text-slate-500 dark:text-[#b9f2ff]/60 mt-2">
                 Việc tạo video yêu cầu API key của riêng bạn.
                 <a 
-                    href="https://ai.google.dev/gemini-api/docs/billing" 
+                    href="https://platform.openai.com/api-keys" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="underline hover:text-sky-600 dark:hover:text-white"
