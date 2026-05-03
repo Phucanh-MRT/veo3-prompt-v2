@@ -46,30 +46,30 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose })
 
         <div className="space-y-4">
             <p className="text-sm text-slate-600 dark:text-[#b9f2ff]/70 leading-relaxed">
-                Để sử dụng ứng dụng này, bạn cần cung cấp API Key Google Gemini của riêng mình. Key sẽ được lưu trong trình duyệt (LocalStorage) của bạn và không bao giờ được gửi đi đâu khác ngoài Google.
+                Để sử dụng ứng dụng này, bạn cần cung cấp API Key OpenAI của riêng mình. Key sẽ được lưu trong trình duyệt (LocalStorage) của bạn và không bao giờ được gửi đi đâu khác ngoài OpenAI.
             </p>
             
             <div>
                 <label className="block text-xs font-anton uppercase tracking-wider text-slate-500 dark:text-[#b9f2ff]/60 mb-2">
-                    Google Gemini API Key
+                    OpenAI API Key
                 </label>
                 <input 
                     type="password" 
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
-                    placeholder="Nhập API Key bắt đầu bằng AIza..."
+                    placeholder="Nhập API Key bắt đầu bằng sk-..."
                     className="w-full bg-slate-50 dark:bg-[#0d0d0d] border border-slate-300 dark:border-[#b9f2ff]/30 rounded-lg p-3 text-slate-900 dark:text-white focus:border-sky-500 dark:focus:border-[#b9f2ff] focus:ring-1 focus:ring-sky-500 dark:focus:ring-[#b9f2ff] transition-all outline-none"
                 />
             </div>
 
             <div className="pt-2">
                 <a 
-                    href="https://aistudio.google.com/app/apikey" 
+                    href="https://platform.openai.com/api-keys" 
                     target="_blank" 
                     rel="noreferrer"
                     className="text-xs text-sky-600 dark:text-[#b9f2ff] hover:underline"
                 >
-                    Lấy API Key tại Google AI Studio &rarr;
+                    Lấy API Key tại OpenAI Platform &rarr;
                 </a>
             </div>
 
